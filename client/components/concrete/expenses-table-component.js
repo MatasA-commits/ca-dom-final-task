@@ -2,11 +2,13 @@ import API from "../../api.js";
 
 class ExpensesTableComponent {
   htmlElement;
+  tbodyHtmlElement;
 
-  constructor({ expenses }) {
+  onDeleteExpense;
+
+  constructor({ expenses, onDeleteExpense }) {
     this.htmlElement = document.createElement("table");
-    this.htmlElement.className =
-      "table table-striped table-dark expenses-table m-auto border-3";
+    this.htmlElement.className = "table table-striped table-dark expenses-table m-auto border-3";
     this.htmlElement.innerHTML = `
     <thead>
         <tr>
@@ -17,9 +19,10 @@ class ExpensesTableComponent {
         </tr>
       </thead>
       <tbody></tbody>`;
-    const tbody = this.htmlElement.querySelector("tbody");
-    const rowsHtmlElements = expenses.map(this.createRowHtmlElement);
-    tbody.append(...rowsHtmlElements);
+    this.onDeleteExpense = onDeleteExpense;
+    this.tbodyHtmlElement = this.htmlElement.querySelector('tbody');
+    this.renderExpenses(expenses)
+
   }
 
   createRowHtmlElement = ({ id, title, amount }) => {
@@ -32,25 +35,17 @@ class ExpensesTableComponent {
         <button class="btn btn-danger btn-sm">✕</button>
       </td>`;
 
-    const handleDeleteExpense = async () => {
-      try {
-        await API.deleteExpense({ id, title });
-      } catch (error) {
-        alert(error);
-      } finally {
-        const expenses = await API.getExpenses();
-        const tbody = this.htmlElement.querySelector('tbody');
-        const rowsHtmlElements = expenses.map(this.createRowHtmlElement);
-        tbody.innerHTML = null;
-        tbody.append(...rowsHtmlElements);
-      }
-    };
-
     const deleteButton = tr.querySelector(".btn-danger");
-    deleteButton.addEventListener("click", handleDeleteExpense);
+    deleteButton.addEventListener("click", () => this.onDeleteExpense({id, title}));
 
     return tr;
-  };
+  }
+
+  renderExpenses = (expenses) => {
+    this.tbodyHtmlElement.innerHTML = null;
+    const rowsHtmlElements = expenses.map(this.createRowHtmlElement);
+    this.tbodyHtmlElement.append(...rowsHtmlElements);
+  }
 }
 
 export default ExpensesTableComponent;

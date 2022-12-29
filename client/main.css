@@ -9,3 +9,7 @@ body{
 .expenses-table{
   width: 70%;
 }
+
+.form-container{
+  width: 200px;
+}
