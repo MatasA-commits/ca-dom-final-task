@@ -1,0 +1,13 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "DOM final task server",
+  "scripts": {
+    "start": "json-server --watch --port 5001 ./db.json"
+  },
+  "author": "Matas Aleliūnas",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.17.1"
+  }
+}

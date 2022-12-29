@@ -1,0 +1,19 @@
+{
+  "expenses": [
+    {
+      "id": "1",
+      "title": "Pavadinimas 1",
+      "amount": 100
+    },
+    {
+      "title": "Pavadinimas 2",
+      "amount": 300,
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "title": "Pavadinimas 3",
+      "amount": 400
+    }
+  ]
+}
