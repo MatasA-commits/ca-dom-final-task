@@ -30,7 +30,26 @@ const API = {
     } catch(error){
       throw formatError(error);
     }
-  }
+  },
+
+  async createExpense(expenseData){
+    try{
+      const response = await fetch('http://localhost:5001/expenses', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify(expenseData),
+      });
+
+      if (response.status === 404){
+        throw new Error('Failed to create new expense')
+      }
+    } catch(error){
+      throw formatError(error);
+    }
+  } 
 }
 
 export default API;
