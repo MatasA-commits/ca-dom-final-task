@@ -11,15 +11,14 @@ class ExpensesTableComponent {
     <thead>
         <tr>
           <th>id</th>
-          <th>Title</th>
-          <th>Amount</th>
-          <th class='actions-row'>Actions</th>
+          <th>Pavadinimas</th>
+          <th>Suma</th>
+          <th class='actions-row'>Veiksmai</th>
         </tr>
       </thead>
       <tbody></tbody>`;
     const tbody = this.htmlElement.querySelector("tbody");
     const rowsHtmlElements = expenses.map(this.createRowHtmlElement);
-    console.log(rowsHtmlElements);
     tbody.append(...rowsHtmlElements);
   }
 
@@ -32,6 +31,24 @@ class ExpensesTableComponent {
     <td class="d-flex justify-content-end actions-row">
         <button class="btn btn-danger btn-sm">✕</button>
       </td>`;
+
+    const handleDeleteExpense = async () => {
+      try {
+        await API.deleteExpense({ id, title });
+      } catch (error) {
+        alert(error);
+      } finally {
+        const expenses = await API.getExpenses();
+        const tbody = this.htmlElement.querySelector('tbody');
+        const rowsHtmlElements = expenses.map(this.createRowHtmlElement);
+        tbody.innerHTML = null;
+        tbody.append(...rowsHtmlElements);
+      }
+    };
+
+    const deleteButton = tr.querySelector(".btn-danger");
+    deleteButton.addEventListener("click", handleDeleteExpense);
+
     return tr;
   };
 }
