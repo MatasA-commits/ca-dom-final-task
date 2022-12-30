@@ -1,5 +1,5 @@
 body{
-  background-color: rgb(59, 59, 59);
+  background-color: rgb(39, 39, 39);
 }
 
 .actions-row{
@@ -18,10 +18,6 @@ body{
   display: none;
 }
 
-.expenses-table__row--editable{
-  background-color: aqua;
-}
-
 .expenses-table__row--editable .btn-success{
   display: inline-block;
 }
@@ -30,7 +26,4 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-input[type="number"] {
-    -moz-appearance: textfield;
 }

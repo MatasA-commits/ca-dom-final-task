@@ -5,6 +5,8 @@ class ExpensesTableComponent {
   onDeleteExpense;
   onUpdateExpense;
 
+  cancelationHandlers;
+
   constructor({ expenses, onDeleteExpense, onUpdateExpense }) {
     this.htmlElement = document.createElement("table");
     this.htmlElement.className =
@@ -21,24 +23,29 @@ class ExpensesTableComponent {
       <tbody></tbody>`;
     this.onDeleteExpense = onDeleteExpense;
     this.onUpdateExpense = onUpdateExpense;
+    this.cancelationHandlers = [];
     this.tbodyHtmlElement = this.htmlElement.querySelector("tbody");
     this.renderExpenses(expenses);
   }
 
   enableRowEditAction = ({
-    isBeingEdited,
     tr,
     editButton,
     cancelEditing,
     enableEditing,
+    initialState,
   }) => {
-    document.addEventListener("click", (event) => {
+    const cancelationHandler = (event) => {
       event.stopPropagation();
       if (!tr.contains(event.target)) cancelEditing();
-    });
+    };
 
-    editButton.addEventListener("click", () => {
-      if (isBeingEdited) cancelEditing();
+    this.cancelationHandlers.push(cancelationHandler);
+    document.addEventListener("click", cancelationHandler);
+
+    editButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (initialState.isBeingEdited) cancelEditing();
       else enableEditing();
     });
   };
@@ -76,8 +83,7 @@ class ExpensesTableComponent {
   };
 
   enableRowActions = ({ tr, id, title, amount }) => {
-    let isBeingEdited = false;
-    const initialState = { title, amount };
+    const initialState = { title, amount, isBeingEdited: false };
     const deleteButton = tr.querySelector(".btn-danger");
     const updateButton = tr.querySelector(".btn-success");
     const editButton = tr.querySelector(".btn-warning");
@@ -88,28 +94,27 @@ class ExpensesTableComponent {
       tr.classList.remove("expenses-table__row--editable");
       editButton.innerHTML =
         "<span class='material-symbols-outlined'> edit_note </span>";
-      editButton.classList.replace("btn-info", "btn-warning");
+      editButton.classList.replace("btn-outline-danger", "btn-warning");
       titleColumn.setAttribute("contenteditable", "false");
       amountColumn.setAttribute("contenteditable", "false");
       titleColumn.innerText = initialState.title;
       amountColumn.innerText = initialState.amount;
-      isBeingEdited = false;
+      initialState.isBeingEdited = false;
     };
 
     const enableEditing = () => {
       tr.classList.add("expenses-table__row--editable");
       editButton.innerHTML =
         '<span class="material-symbols-outlined">do_not_disturb_on</span>';
-      editButton.classList.replace("btn-warning", "btn-info");
+      editButton.classList.replace("btn-warning", "btn-outline-danger");
       titleColumn.setAttribute("contenteditable", "true");
       amountColumn.setAttribute("contenteditable", "true");
-      isBeingEdited = true;
+      initialState.isBeingEdited = true;
     };
 
     const rowProps = {
       id,
       initialState,
-      isBeingEdited,
       tr,
       titleColumn,
       amountColumn,
@@ -127,7 +132,7 @@ class ExpensesTableComponent {
 
   createRowHtmlElement = ({ id, title, amount }) => {
     const tr = document.createElement("tr");
-    tr.className = 'expenses-table__row';
+    tr.className = "expenses-table__row";
     tr.innerHTML = `
     <th>${id}</th>
     <td class='js-title-col'>${title}</td>
@@ -144,13 +149,18 @@ class ExpensesTableComponent {
     </span></button>
       </td>`;
 
-    this.enableRowActions({tr, id, title, amount})
+    this.enableRowActions({ tr, id, title, amount });
 
     return tr;
   };
 
   renderExpenses = (expenses) => {
     this.tbodyHtmlElement.innerHTML = null;
+    this.cancelationHandlers.forEach((cancelationHandler) =>
+      document.removeEventListener("click", cancelationHandler)
+    );
+    this.cancelationHandlers = [];
+
     const rowsHtmlElements = expenses.map(this.createRowHtmlElement);
     this.tbodyHtmlElement.append(...rowsHtmlElements);
   };

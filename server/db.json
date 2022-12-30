@@ -1,39 +1,24 @@
 {
   "expenses": [
     {
-      "title": "test",
-      "amount": "105.37",
-      "id": "P6fe4dx"
+      "id": "1",
+      "title": "Pavadinimas 1",
+      "amount": 100
     },
     {
-      "title": "heyo",
-      "amount": "150",
-      "id": "2F6SCVI"
+      "title": "Pavadinimas 2",
+      "amount": 300.3,
+      "id": "2"
     },
     {
-      "title": "try me",
-      "amount": "200",
-      "id": "GAhfhAn"
+      "title": "prekė 3",
+      "amount": "-300.9",
+      "id": "o9KIdBF"
     },
     {
-      "title": "test",
-      "amount": "200.01",
-      "id": "LkZWRDp"
-    },
-    {
-      "title": "test",
-      "amount": "3000.50",
-      "id": "tYCNhEY"
-    },
-    {
-      "title": "test",
-      "amount": "300.03",
-      "id": "zf6w3pz"
-    },
-    {
-      "title": "test",
-      "amount": "200.23",
-      "id": "5fBseUC"
+      "title": "prekė 2",
+      "amount": 0,
+      "id": "yJYlSPp"
     }
   ]
 }

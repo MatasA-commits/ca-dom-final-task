@@ -20,7 +20,7 @@ class ExpensesFormComponent {
       
       const formData = new FormData(event.target);
       const title = formData.get("title");
-      const amount = formData.get("amount");
+      const amount = Number(formData.get("amount"));
       console.log(amount)
 
       onSubmit({ title, amount });
