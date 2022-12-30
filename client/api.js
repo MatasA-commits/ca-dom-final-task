@@ -49,7 +49,26 @@ const API = {
     } catch(error){
       throw formatError(error);
     }
-  } 
-}
+  },
+  
+  async updateExpense({id, props}) {
+    try{
+      const response = await fetch(`http://localhost:5001/expenses/${id}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }, 
+        method: 'PATCH',
+        body: JSON.stringify(props),  
+      });
+      if(response.status === 404) {
+        throw new Error('failed to update expense');
+      }
+    } catch (error){
+      throw formatError(error);
+    }
+  }
+
+};
 
 export default API;

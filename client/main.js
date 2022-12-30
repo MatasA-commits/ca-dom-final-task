@@ -33,11 +33,23 @@ const onCreateExpense = async ({ title, amount }) => {
   }
 };
 
+const onUpdateExpense = async ({id, props }) => {
+  try{
+    await API.updateExpense({id, props});
+  } catch(error){
+    alert(error);
+  } finally{
+    const expenses = await API.getExpenses();
+    expensesTableComponent.renderExpenses(expenses);
+  }
+}
+
 API.getExpenses()
   .then((expenses) => {
     const expensesTableComponent = new ExpensesTableComponent({
       expenses,
       onDeleteExpense,
+      onUpdateExpense,
     });
     const headerComponent = new HeaderComponent({
       text: "Išlaidų sąrašas",

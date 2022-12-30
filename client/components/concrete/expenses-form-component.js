@@ -16,7 +16,6 @@ class ExpensesFormComponent {
         <button type="submit" class="btn btn-primary w-100">Create</button>`;
 
     this.htmlElement.addEventListener("submit", async (event) => {
-      debugger
       event.preventDefault();
       
       const formData = new FormData(event.target);

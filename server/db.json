@@ -1,33 +1,19 @@
 {
   "expenses": [
     {
-      "id": "1",
-      "title": "Pavadinimas 1",
-      "amount": 200
-    },
-    {
-      "id": "2",
-      "title": "Pavadinimas 2",
-      "amount": 300
-    },
-    {
       "id": "3",
-      "title": "Pavadinimas 3",
-      "amount": 400
+      "title": "Pavadinimas3",
+      "amount": "200"
     },
     {
-      "title": "test",
-      "id": "YxooYus"
-    },
-    {
-      "title": "test",
+      "title": "trye",
       "amount": "200",
-      "id": "Q-hOSnr"
+      "id": "SrduUIC"
     },
     {
       "title": "test",
-      "amount": "300",
-      "id": "bIHe69x"
+      "amount": "20",
+      "id": "A98_kCQ"
     }
   ]
 }
