@@ -11,7 +11,7 @@ class ExpensesFormComponent {
         </div>
         <div class="mb-3">
           <label for="sumInput" class="form-label">Suma:</label>
-          <input type="number" class="form-control" id="sumInput" name="amount">
+          <input type="number" class="form-control" id="sumInput" step=".01" name="amount">
         </div>
         <button type="submit" class="btn btn-primary w-100">Create</button>`;
 

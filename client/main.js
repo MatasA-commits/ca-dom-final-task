@@ -33,16 +33,27 @@ const onCreateExpense = async ({ title, amount }) => {
   }
 };
 
-const onUpdateExpense = async ({id, props }) => {
-  try{
-    await API.updateExpense({id, props});
-  } catch(error){
+const onUpdateExpense = async ({ id, props }) => {
+  try {
+    await API.updateExpense({ id, props });
+  } catch (error) {
     alert(error);
-  } finally{
+  } finally {
     const expenses = await API.getExpenses();
     expensesTableComponent.renderExpenses(expenses);
   }
-}
+};
+
+const getExpenseAmountSum = async () => {
+  try {
+    const getAmountSum = await API.getExpenseAmountSum();
+    return getAmountSum;
+  } catch (error) {
+    alert(error);
+  }
+};
+
+const expenseAmountSum = await getExpenseAmountSum();
 
 API.getExpenses()
   .then((expenses) => {
@@ -55,18 +66,28 @@ API.getExpenses()
       text: "Išlaidų sąrašas",
       className: "text-center my-2 text-white",
     });
-    expensesFormComponent = new ExpensesFormComponent({ onSubmit: onCreateExpense });
+
+    const expenseSumComponent = new HeaderComponent({
+      text: `Išlaidų suma: ${expenseAmountSum.toFixed(2)}€`,
+      className: "text-center my-2 text-white",
+      elementType: "h5",
+    });
+    console.log(expenseAmountSum);
+    expensesFormComponent = new ExpensesFormComponent({
+      onSubmit: onCreateExpense,
+    });
 
     const flexComponent = new FlexComponent({
       children: [
         expensesFormComponent.htmlElement,
         expensesTableComponent.htmlElement,
-      ]
+      ],
     });
 
     const container = new ContainerComponent({
       children: [
         headerComponent.htmlElement,
+        expenseSumComponent.htmlElement,
         flexComponent.htmlElement,
       ],
     });

@@ -1,19 +1,39 @@
 {
   "expenses": [
     {
-      "id": "3",
-      "title": "Pavadinimas3",
-      "amount": "200"
+      "title": "test",
+      "amount": "105.37",
+      "id": "P6fe4dx"
     },
     {
-      "title": "trye",
+      "title": "heyo",
+      "amount": "150",
+      "id": "2F6SCVI"
+    },
+    {
+      "title": "try me",
       "amount": "200",
-      "id": "SrduUIC"
+      "id": "GAhfhAn"
     },
     {
       "title": "test",
-      "amount": "20",
-      "id": "A98_kCQ"
+      "amount": "200.01",
+      "id": "LkZWRDp"
+    },
+    {
+      "title": "test",
+      "amount": "3000.50",
+      "id": "tYCNhEY"
+    },
+    {
+      "title": "test",
+      "amount": "300.03",
+      "id": "zf6w3pz"
+    },
+    {
+      "title": "test",
+      "amount": "200.23",
+      "id": "5fBseUC"
     }
   ]
 }

@@ -14,7 +14,7 @@ class ExpensesTableComponent {
         <tr>
           <th>id</th>
           <th>Pavadinimas</th>
-          <th>Suma</th>
+          <th>Kaina</th>
           <th class='actions-row'>Veiksmai</th>
         </tr>
       </thead>
